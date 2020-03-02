@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
     const loginComponentPadding = const EdgeInsets.all(8.0);
 
     return BlocProvider<LoginBloc>(
-      builder: (context) => LoginBloc(),
+      create: (context) => LoginBloc(),
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           var loginProgressBar = ProgressDialog(context);

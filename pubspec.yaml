@@ -35,7 +35,11 @@ dependencies:
   firebase_database: ^3.1.1
   pull_to_refresh: ^1.5.8
   bubble: ^1.1.9+1
-  barcode_scan: "^1.0.0"
+  camera: ^0.5.7+4
+  firebase_ml_vision: ^0.9.3+5
+  url_launcher: ^5.4.2
+
+
 
 
 
