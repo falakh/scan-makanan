@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "609545247054",
+    "firebase_url": "https://scanmakan-da574.firebaseio.com",
+    "project_id": "scanmakan-da574",
+    "storage_bucket": "scanmakan-da574.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609545247054:android:a26cec87c4549abf14a61f",
+        "android_client_info": {
+          "package_name": "com.example.scanmakan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609545247054-84q0augjapvfurpdjvnf43kvtqdg9ms0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdV0dF-woArLW_z_MVYCMxU7vZBGiAwoE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609545247054-84q0augjapvfurpdjvnf43kvtqdg9ms0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
