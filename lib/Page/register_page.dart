@@ -30,7 +30,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
           title: new Text("Registrasi"),
         ),
         body: BlocProvider<RegisterBloc>(
-          builder: (context) => RegisterBloc(),
+          create: (context) => RegisterBloc(),
           child: BlocBuilder<RegisterBloc, RegisterState>(
             builder: (context, registerState) {
               if (registerState.isSubmitting) {

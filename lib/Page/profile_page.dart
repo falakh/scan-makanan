@@ -14,7 +14,7 @@ class ProfillePage extends StatelessWidget {
           title: new Text("Data Diri"),
         ),
         body: BlocProvider<UserProffileBloc>(
-          builder: (context) => UserProffileBloc(),
+          create: (context) => UserProffileBloc(),
           child: BlocBuilder<UserProffileBloc, UserProffileState>(
             builder: (context, state) {
               if(state is InitialUserProffileState){
@@ -24,6 +24,9 @@ class ProfillePage extends StatelessWidget {
                 print("User found");
 
                 return ProfiileTile(model: state.result);
+              }
+              if(state is ErrorUserProffileState){
+                return new Text("woops");
               }
               return Center(
 

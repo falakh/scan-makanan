@@ -6,6 +6,9 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:scanmakan/Repositori/kalori_repository.dart';
+import 'package:scanmakan/provider/kalori_provider.dart';
+import 'package:scanmakan/provider/penyakit_provider.dart';
 
 import 'package:scanmakan/tools/validator/email_validator.dart';
 import 'package:scanmakan/tools/validator/password_validator.dart';
@@ -19,7 +22,10 @@ test("password validator",(){
   expect(PasswordValidator().isValid("1234567"), false);
   expect(PasswordValidator().isValid("12345678"), true);
 });
-test("get user data",(){
-
+test("get user data",() async {
+  var list = await PenyakitProvider.getDataLarangan("Hipertensi");
+  print(list);
+  expect(list, isNotNull);
+  
 });
 }

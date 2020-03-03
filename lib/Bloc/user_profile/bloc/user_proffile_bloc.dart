@@ -12,26 +12,32 @@ class UserProffileBloc extends Bloc<UserProffileEvent, UserProffileState> {
   Stream<UserProffileState> mapEventToState(
     UserProffileEvent event,
   ) async* {
-    try{
-      if(event is RequestUserProffile){
+    try {
+      if (event is RequestUserProffile) {
         yield new LoadingUserProffileState();
         var userProffile = await UserRepository.userProfile;
-        if(userProffile != null)
-        yield new UserProffileFounded(userProffile);
-        else{
-          yield new UserProffileFounded(UserModel.dummy());
+        if (userProffile != null)
+          yield new UserProffileFounded(userProffile);
+        else {
+          yield new UserProffileFounded(UserModel(
+              age: 0,
+              beratBadan: 0,
+              disase: [],
+              gender: "Laki-Laki",
+              name: "",
+              tinggiBadan: 0));
         }
-      }else if (event is SaveUserProffileEvent){
+      } else if (event is SaveUserProffileEvent) {
         yield new LoadingUserProffileState();
         print("Save event");
-        print(event.model.gender);
         var save = await UserRepository.saveUserProfile(event.model);
-        yield new UserProffileFounded(save);
-
+         var userProffile = await UserRepository.userProfile;
+        yield new UserProffileFounded(userProffile);
       }
-    }catch(eror){
+    } catch (eror) {
+      print("eror"+eror.toString());
+      yield new ErrorUserProffileState();
       throw new Exception("ini eror");
     }
-   
   }
 }

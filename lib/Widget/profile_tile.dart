@@ -20,14 +20,29 @@ class _ProfiileTileState extends State<ProfiileTile> {
   var usiaCOntroller = TextEditingController();
   var beratBadan = TextEditingController();
   var tinggibadan = TextEditingController();
+  var penyakitCondition = [false, false, false, false];
+  static const daftarPenyakit = [
+    "Jantung",
+    "Stroke",
+    "Diabetes Miletus",
+    "Hipertensi"
+  ];
+
   _ProfiileTileState(this.model) {
     //  print(this.model.name);
-      nameController.text = this.model.name ?? "";
-      dropdownValue = this.model.gender ?? dropdownValue;
-      usiaCOntroller.text = this.model.age.toString() ?? "0";
-      beratBadan.text = this.model.beratBadan.toString() ?? "0";
-      tinggibadan.text = this.model.tinggiBadan.toString() ?? "0";
-
+    nameController.text = this.model?.name ?? "";
+    dropdownValue = this.model?.gender ?? dropdownValue;
+    usiaCOntroller.text = this.model?.age.toString() ?? "0";
+    beratBadan.text = this.model?.beratBadan.toString() ?? "0";
+    tinggibadan.text = this.model?.tinggiBadan.toString() ?? "0";
+    penyakitCondition[0] =
+        this.model?.disase?.contains(daftarPenyakit[0]) ?? false;
+    penyakitCondition[2] =
+        this.model?.disase?.contains(daftarPenyakit[2]) ?? false;
+    penyakitCondition[1] =
+        this.model?.disase?.contains(daftarPenyakit[1]) ?? false;
+    penyakitCondition[3] =
+        this.model?.disase?.contains(daftarPenyakit[3]) ?? false;
   }
 
   @override
@@ -36,24 +51,11 @@ class _ProfiileTileState extends State<ProfiileTile> {
       child: new ListView(
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         children: <Widget>[
-          ActionChip(
-            
-            label: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                new Icon(Icons.close),
-                new Text("ini chip"),
-              ],
-            ),
-            onPressed: () {
-              print("object");
-            },
-          ),
           new Text(
             "DATA DIRI",
             textAlign: TextAlign.center,
             style:
-                Theme.of(context).textTheme.display1.apply(fontWeightDelta: 3),
+                Theme.of(context).textTheme.headline4.apply(fontWeightDelta: 3),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
@@ -104,6 +106,14 @@ class _ProfiileTileState extends State<ProfiileTile> {
                 new TextFormFieldWithBorder(
                   "Riwayat Penyakit",
                 ),
+                Column(
+                  children: [
+                    penyakitCheckBox(0),
+                    penyakitCheckBox(1),
+                    penyakitCheckBox(2),
+                    penyakitCheckBox(3),
+                  ],
+                ),
                 new TextFormFieldWithBorder(
                   "Alergi",
                 ),
@@ -119,6 +129,8 @@ class _ProfiileTileState extends State<ProfiileTile> {
                     beratBadan: int.parse(beratBadan.text),
                     gender: dropdownValue,
                     tinggiBadan: int.parse(tinggibadan.text),
+                    disase: userDisase
+                    
                   ))),
                   child: new Text(
                     "ADD",
@@ -136,6 +148,29 @@ class _ProfiileTileState extends State<ProfiileTile> {
           ),
         ],
       ),
+    );
+  }
+
+  List<String> get userDisase{
+    var data = List<String>();
+    for (var i=0;i<this.penyakitCondition.length;i++) {
+      if(penyakitCondition[i]){
+        data.add(daftarPenyakit[i]);
+      }
+    }
+    return data;
+  }
+
+  Row penyakitCheckBox(int index) {
+    return Row(
+      children: <Widget>[
+        Checkbox(
+            value: this.penyakitCondition[index] ?? false,
+            onChanged: (value) => this.setState(() {
+                  this.penyakitCondition[index] = value;
+                })),
+        new Text(daftarPenyakit[index])
+      ],
     );
   }
 }

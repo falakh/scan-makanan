@@ -32,7 +32,7 @@ class _KaloriChartState extends State<KaloriChart> {
         }
 
         return StreamBuilder<Event>(
-            stream: CaloriProvider.GetUserTodayCalory(snap.data).onValue,
+            stream: CaloriRepositoy.GetUserTodayCalory(snap.data).onValue,
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return Center(

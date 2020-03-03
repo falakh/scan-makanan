@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:scanmakan/model/makanan_model.dart';
 import 'package:scanmakan/model/user_model.dart';
 import 'package:scanmakan/provider/user_provider.dart';
+
+import 'kalori_repository.dart';
 
 class UserRepository {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -29,7 +32,8 @@ class UserRepository {
       'umur': user.age,
       "gender": user.gender,
       "berat-badan": user.beratBadan,
-      "tinggi": user.tinggiBadan
+      "tinggi": user.tinggiBadan,
+      "disase":user.disase
     }, merge: true);
     return hasil;
   }
@@ -48,7 +52,7 @@ class UserRepository {
         tinggiBadan: 0,
         name: "",
         gender: "Laki-Laki",
-        disase: [],
+        disase: new List(),
         beratBadan: 0,
         age: 0
       );
@@ -64,6 +68,14 @@ class UserRepository {
         age: proffile.data['umur'],
         beratBadan: proffile.data["berat-badan"],
         gender: proffile.data["gender"],
+        disase: List.from(proffile.data["disase"]),
         tinggiBadan: proffile.data['tinggi']);
   }
+
+  static Future<List<MakananModel>> get userFoodRecomendation async {
+    var user = await userProfile;
+    return await CaloriRepositoy.getSafeFoodByPenyakit(user.disase);
+
+  }
+
 }
