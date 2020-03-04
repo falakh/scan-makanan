@@ -49,6 +49,7 @@ class UserRepository {
     print(proffile.data);
     if(proffile.data==null){
       return new UserModel(
+        aktifitas: "",
         tinggiBadan: 0,
         name: "",
         gender: "Laki-Laki",

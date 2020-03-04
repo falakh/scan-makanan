@@ -38,16 +38,17 @@ dependencies:
   camera: ^0.5.7+4
   firebase_ml_vision: ^0.9.3+5
   url_launcher: ^5.4.2
-
-
-
-
-
-
+  tflite: ^1.0.5
+  mlkit : ^0.15.0
+#  firebase_livestream_ml_vision: ^1.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  path_provider: ^0.5.0+1
+  automl_mlkit:
+    path: ../mlkit-custom-image-classifier-master/automl_mlkit
+  
 
 
 # For information on the generic Dart part of this file, see the
@@ -65,6 +66,11 @@ flutter:
   assets:
    - assets/kucing.jpg
    - assets/rekomendasi_makanan.png
+   - assets/Gojek.png
+   - assets/model/model.tflite
+   - assets/model/dict.txt
+   - assets/model/manifest.json
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

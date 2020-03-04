@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scanmakan/model/makanan_model.dart';
+import 'package:automl_mlkit/automl_mlkit.dart';
 
 class FoodCard extends StatefulWidget {
   @override

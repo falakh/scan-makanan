@@ -82,13 +82,6 @@ class RegisterForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Positioned(
-          top: 0,
-          left: 120,
-          width: 100,
-          child: Container(
-              child: Center(child: new Image.asset("assets/kucing.jpg"))),
-        ),
         Center(
           child: Card(
             elevation: 10,

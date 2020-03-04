@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:automl_mlkit/automl_mlkit.dart';
+import 'package:scanmakan/Widget/ml_kit_widget_example.dart';
 
 class FoodDetector extends StatelessWidget {
   const FoodDetector() : super();
@@ -14,20 +17,29 @@ class FoodDetector extends StatelessWidget {
     return Future.value(image);
   }
 
+  
+
+  Future<void> loadModel() async {
+    String dataset = "model";
+    // String dataset = "pens";
+    // await createLocalFiles(dataset);
+    String modelLoadStatus;
+    try {
+      await AutomlMlkit.loadModelFromCache(dataset: dataset);
+      
+      modelLoadStatus = "AutoML model successfully loaded";
+    } on PlatformException catch (e) {
+      modelLoadStatus = "Error loading model";
+      print("error from platform on calling loadModelFromCache");
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            photoWidget(context),
-            // pictureDummy(),
-            resultCard("Sate", "1500")
-          ],
-        ),
-      ),
+      body: ml_example()
+      
     );
   }
 

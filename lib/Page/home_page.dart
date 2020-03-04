@@ -46,6 +46,9 @@ class _HomePageState extends State<HomePage> {
       body: TodaysKaloriComponent(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (indexBottomNavigationBar) => this.setState(() {
+          if(indexBottomNavigationBar == 5){
+            return;
+          }
           Navigator.push(context, MaterialPageRoute(builder: (context)=>Container(child: widgetList[homeTabIndex]) ));
           homeTabIndex = (indexBottomNavigationBar);
         }),
@@ -63,6 +66,9 @@ class _HomePageState extends State<HomePage> {
               title: new Text("Scan QR "), icon: Icon(Icons.camera)),
           BottomNavigationBarItem(
               title: new Text("Profile"), icon: Icon(Icons.account_circle)),
+          BottomNavigationBarItem(
+            title: new Text("Delivery"), icon: ImageIcon(AssetImage(Resources.deliveri))
+          )
         ],
       ),
     );

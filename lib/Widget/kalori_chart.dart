@@ -10,17 +10,9 @@ class KaloriChart extends StatefulWidget {
 }
 
 class _KaloriChartState extends State<KaloriChart> {
-  final GlobalKey<AnimatedCircularChartState> _chartKey =
+  final GlobalKey<AnimatedCircularChartState> _chartKey
+  =
       new GlobalKey<AnimatedCircularChartState>();
-  List<CircularStackEntry> data = <CircularStackEntry>[
-    new CircularStackEntry(
-      <CircularSegmentEntry>[
-        new CircularSegmentEntry(22.0, Colors.green, rankKey: 'fill'),
-        new CircularSegmentEntry(7.0, Colors.grey[200], rankKey: 'sisa'),
-      ],
-      rankKey: 'Quarterly Profits',
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +20,9 @@ class _KaloriChartState extends State<KaloriChart> {
       future: UserRepository.currentUserId,
       builder: (context, snap) {
         if (!snap.hasData) {
-          return Container();
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         }
 
         return StreamBuilder<Event>(
@@ -42,25 +36,46 @@ class _KaloriChartState extends State<KaloriChart> {
               if (snapshot.hasError) {
                 return new Text(snapshot.hasError.toString());
               }
-              print(snapshot.data.snapshot.value.toString());
-              return new Text(snapshot.data.snapshot.value.toString());
-              // return circleCaloriChart( snapshot.data.snapshot.value.toString(), context);
+              return FutureBuilder<AnimatedCircularChart>(
+                future: circleCaloriChart(
+                    snapshot.data.snapshot.value, context),
+                builder: (context, widgetSnapshoot) {
+                  if (snapshot.hasData){
+                    return widgetSnapshoot.data;
+
+                  }
+
+                    return CircularProgressIndicator();
+                },
+              );
             });
       },
     );
   }
 
-  AnimatedCircularChart circleCaloriChart(
-      String snapshot, BuildContext context) {
+  Future<AnimatedCircularChart> circleCaloriChart(
+      int snapshot, BuildContext context) async {
+    var curUser = await UserRepository.userProfile;
+    print(curUser);
+    print(snapshot);
     return new AnimatedCircularChart(
-      key: _chartKey,
-      size: const Size(300.0, 250.0),
-      chartType: CircularChartType.Radial,
-      duration: Duration(seconds: 1),
-      holeLabel: snapshot,
-      labelStyle: Theme.of(context).textTheme.display3, 
-      initialChartData: <CircularStackEntry>[],
-    );
+        size: const Size(300.0, 250.0),
+        chartType: CircularChartType.Radial,
+        duration: Duration(seconds: 1),
+        holeLabel: snapshot.toString(),
+        labelStyle: Theme.of(context).textTheme.headline4,
+        initialChartData: <CircularStackEntry>[
+          new CircularStackEntry(
+            <CircularSegmentEntry>[
+              new CircularSegmentEntry(
+                  (snapshot)/1.0, Colors.green,
+                  rankKey: 'fill'),
+              new CircularSegmentEntry(curUser.kaloriHarian, Colors.grey[200],
+                  rankKey: 'sisa'),
+            ],
+            rankKey: 'Quarterly Profits',
+          ),
+        ]);
   }
 
   @override

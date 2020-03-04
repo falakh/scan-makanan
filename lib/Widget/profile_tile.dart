@@ -62,6 +62,7 @@ class _ProfiileTileState extends State<ProfiileTile> {
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
+                new Text("Nama"),
                 new TextFormFieldWithBorder(
                   "Nama",
                   controller: nameController,
@@ -116,6 +117,8 @@ class _ProfiileTileState extends State<ProfiileTile> {
                 ),
                 new TextFormFieldWithBorder(
                   "Alergi",
+                ),new ListTile(
+                  title: new Text("Aktivitas"),
                 ),
                 new MaterialButton(
                   color: Theme.of(context).primaryColor,
