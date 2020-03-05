@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'package:scanmakan/Repositori/user_repository.dart';
 import 'package:scanmakan/model/makanan_model.dart';
 import 'package:scanmakan/model/penyakit_model.dart';
 import 'package:scanmakan/provider/kalori_provider.dart';
@@ -9,7 +10,8 @@ import 'package:scanmakan/provider/penyakit_provider.dart';
 
 class CaloriRepositoy {
   static var database = new FirebaseDatabase().reference().child("Kalori");
-  static DatabaseReference GetUserTodayCalory(userId) {
+  // ignore: non_constant_identifier_names
+  static  DatabaseReference GetUserTodayCalory(userId) {
     print(userId);
     return database.reference().child(userId);
   }
@@ -78,5 +80,21 @@ class CaloriRepositoy {
     }
     var allForbidenFoodHashSet = HashSet.from(allForbidenFood);
     return allForbidenFoodHashSet;
+  }
+
+  static resetKaloriKOnsumtion(String userId) async {
+    await database.child(userId).set(0);
+  }
+
+  static addKalori(double value) async {
+    var user = await UserRepository.currentUserId;
+
+      var cureCAl = await GetUserTodayCalory(user).once();
+      if(cureCAl.value !=null){
+        value+= cureCAl.value;
+      }
+    database.child(user).set(value);
+
+
   }
 }

@@ -6,6 +6,7 @@ import 'package:scanmakan/model/user_model.dart';
 
 class ProfiileTile extends StatefulWidget {
   final UserModel model;
+
   ProfiileTile({Key key, this.model}) : super(key: key);
 
   @override
@@ -20,6 +21,7 @@ class _ProfiileTileState extends State<ProfiileTile> {
   var usiaCOntroller = TextEditingController();
   var beratBadan = TextEditingController();
   var tinggibadan = TextEditingController();
+  var aktifitasUser = UserModel.TIDAK_AKTIF;
   var penyakitCondition = [false, false, false, false];
   static const daftarPenyakit = [
     "Jantung",
@@ -43,6 +45,7 @@ class _ProfiileTileState extends State<ProfiileTile> {
         this.model?.disase?.contains(daftarPenyakit[1]) ?? false;
     penyakitCondition[3] =
         this.model?.disase?.contains(daftarPenyakit[3]) ?? false;
+    aktifitasUser = this.model?.aktifitas ?? UserModel.TIDAK_AKTIF;
   }
 
   @override
@@ -115,10 +118,25 @@ class _ProfiileTileState extends State<ProfiileTile> {
                     penyakitCheckBox(3),
                   ],
                 ),
-                new TextFormFieldWithBorder(
-                  "Alergi",
-                ),new ListTile(
+                new ListTile(
                   title: new Text("Aktivitas"),
+                ),
+                new Column(
+                  children: [
+                    UserModel.TIDAK_AKTIF,
+                    UserModel.CUKUP_AKTIF,
+                    UserModel.AKTIF,
+                    UserModel.SANGAT_AKTIF
+                  ].map((e) => new RadioListTile(
+                    title: new Text(e),
+                          value: e,
+                          groupValue: aktifitasUser,
+                          onChanged: (s) {
+                            this.setState(() {
+                              aktifitasUser = s;
+                            });
+                          }))
+                      .toList(),
                 ),
                 new MaterialButton(
                   color: Theme.of(context).primaryColor,
@@ -127,14 +145,14 @@ class _ProfiileTileState extends State<ProfiileTile> {
                   onPressed: () => BlocProvider.of<UserProffileBloc>(context)
                       .add(SaveUserProffileEvent(
                           model: new UserModel(
-                    name: nameController.text,
-                    age: int.parse(usiaCOntroller.text),
-                    beratBadan: int.parse(beratBadan.text),
-                    gender: dropdownValue,
-                    tinggiBadan: int.parse(tinggibadan.text),
-                    disase: userDisase
-                    
-                  ))),
+                            aktifitas: aktifitasUser,
+                              lastLogin: model.lastLogin,
+                              name: nameController.text,
+                              age: int.parse(usiaCOntroller.text),
+                              beratBadan: int.parse(beratBadan.text),
+                              gender: dropdownValue,
+                              tinggiBadan: int.parse(tinggibadan.text),
+                              disase: userDisase))),
                   child: new Text(
                     "ADD",
                     style: new TextStyle(
@@ -154,10 +172,10 @@ class _ProfiileTileState extends State<ProfiileTile> {
     );
   }
 
-  List<String> get userDisase{
+  List<String> get userDisase {
     var data = List<String>();
-    for (var i=0;i<this.penyakitCondition.length;i++) {
-      if(penyakitCondition[i]){
+    for (var i = 0; i < this.penyakitCondition.length; i++) {
+      if (penyakitCondition[i]) {
         data.add(daftarPenyakit[i]);
       }
     }

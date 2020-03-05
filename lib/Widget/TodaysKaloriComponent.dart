@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scanmakan/Page/food_detect.dart';
+import 'package:scanmakan/Page/food_recomendation_Page.dart';
 import 'package:scanmakan/Widget/kalori_chart.dart';
 
 class TodaysKaloriComponent extends StatefulWidget {
@@ -54,13 +55,17 @@ class _AddFoodFloatActionButtonState extends State<AddFoodFloatActionButton> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
     var addButton = new FloatingActionButton(
       heroTag: "add",
         child: new Icon(Icons.add),
         onPressed: () => setState(() {
-              isShowingChild = !isShowingChild;
+//              isShowingChild = !isShowingChild;
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context)=> FoodRecomendation(isAll: true)
+              ));
             }));
     return !isShowingChild
         ? addButton

@@ -40,6 +40,7 @@ dependencies:
   url_launcher: ^5.4.2
   tflite: ^1.0.5
   mlkit : ^0.15.0
+  pie_chart: ^3.1.1
 #  firebase_livestream_ml_vision: ^1.0.1
 
 dev_dependencies:
@@ -48,6 +49,10 @@ dev_dependencies:
   path_provider: ^0.5.0+1
   automl_mlkit:
     path: ../mlkit-custom-image-classifier-master/automl_mlkit
+  flutter_launcher_name: "^0.0.1"
+
+flutter_launcher_name:
+  name: "iCan Health"
   
 
 

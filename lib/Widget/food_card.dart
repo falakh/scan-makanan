@@ -56,6 +56,7 @@ class FoodWidget extends StatelessWidget {
           ),
           ListTile(
             title: new Text(this.foodModel.name),
+            subtitle: new Text(foodModel.energi.toString()+" kal / "+foodModel.berat.toString()+"gram" ),
           ),
         ],
       ),

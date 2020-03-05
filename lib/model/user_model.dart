@@ -6,6 +6,7 @@ class UserModel {
   final int beratBadan;
   final int tinggiBadan;
   final String aktifitas;
+  final DateTime lastLogin;
 
   static const TIDAK_AKTIF = "TIDAK AKTIF";
   static const CUKUP_AKTIF = "CUKUP AKTIF";
@@ -14,7 +15,7 @@ class UserModel {
 
 
   UserModel(
-      {this.aktifitas, this.age, this.name, this.gender, this.disase, this.beratBadan, this.tinggiBadan});
+      {this.lastLogin,this.aktifitas, this.age, this.name, this.gender, this.disase, this.beratBadan, this.tinggiBadan});
 
   static UserModel dummy() {
     return new UserModel(

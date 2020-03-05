@@ -68,19 +68,10 @@ class _CameraRecognizerWidgetState extends State<CameraRecognizerWidget> {
               recognitions.map((res) {
                 isDetecting=false;
               });
-
-
-
               print(recognitions);
-
-
-
-
               int endTime = new DateTime.now().millisecondsSinceEpoch;
               print("Detection took ${endTime - startTime}");
-
               widget.setRecognitions(recognitions, img.height, img.width);
-
               isDetecting = false;
             });
           }

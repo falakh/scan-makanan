@@ -41,9 +41,9 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
               if (registerState.isSuccess) {
                 Future.delayed(Duration.zero, () {
                   dialog.dismiss();
-                  Navigator.push(context,
+                  Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (BuildContext context) {
-                    return new ProfillePage();
+                    return new LoginPage();
                   }));
                 });
               }

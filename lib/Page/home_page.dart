@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   int homeTabIndex = 0;
   final widgetList =<Widget>[
     
-    new FoodRecomendation(),
+    new FoodRecomendation(isAll: false,),
     new KonsulPage(),
     new FoodDetector(),
     new QRScannerPage(),

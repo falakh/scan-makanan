@@ -17,6 +17,7 @@ class ml_example extends StatefulWidget {
 
 class _ml_exampleState extends State<ml_example> {
   String _modelLoadStatus = 'unknown';
+  bool isLoading=false;
   File _imageFile;
   String _inferenceResult;
   String _label;
@@ -24,10 +25,11 @@ class _ml_exampleState extends State<ml_example> {
   @override
   void initState() {
     super.initState();
-    // loadModel();
+     loadModel();
   }
 
   Future<void> loadModel() async {
+    isLoading = true;
     String dataset = "makanan";
     await createLocalFiles(dataset);
     String modelLoadStatus;
@@ -38,6 +40,8 @@ class _ml_exampleState extends State<ml_example> {
       modelLoadStatus = "Error loading model";
       print("error from platform on calling loadModelFromCache");
       print(e.toString());
+    } finally{
+      isLoading = false;
     }
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -76,6 +80,7 @@ class _ml_exampleState extends State<ml_example> {
   }
 
   Future<void> loadImageAndInfer() async {
+    isLoading = true;
     await loadModel();
     final File imageFile =
         await ImagePicker.pickImage(source: ImageSource.camera);
@@ -101,13 +106,16 @@ class _ml_exampleState extends State<ml_example> {
         _label = label.toString();
       });
     }
+    isLoading = false;
+
   }
 
   @override
   Widget build(BuildContext context) {
-    loadModel();
-    return MaterialApp(
-      home: Scaffold(
+    if(isLoading){
+      return Center(child: CircularProgressIndicator(),);
+    }
+    return Scaffold(
         appBar: AppBar(
           title: const Text('Plugin App'),
         ),
@@ -158,7 +166,7 @@ class _ml_exampleState extends State<ml_example> {
             );
           },
         ),
-      ),
+
     );
   }
 }
